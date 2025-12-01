@@ -69,7 +69,7 @@ El resultado son las probabilidades estimadas de salir campeón.
 
 ## 📈 Visualización principal
 
-reports/figures/worldcup2026_champions_prob_top20.png
+![Probabilidades Mundial 2026](reports/figures/worldcup2026_champions_prob_top20.png)
 
 ---
 

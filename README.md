@@ -17,28 +17,33 @@ Este repositorio contiene un pipeline completo para estimar las probabilidades d
 worldcup-2026-prediction/
 │
 ├── data/
-│   ├── raw/                  → resultados históricos originales
-│   ├── external/             → fuentes externas (ELO oficial, market values, geodata)
-│   └── processed/            → datasets limpios y final_power + Monte Carlo
+│   ├── raw/
+│   ├── external/
+│   └── processed/
+│       ├── worldcup2026_fixture_oficial.csv
+│       ├── worldcup2026_montecarlo_top40.csv
+│       ├── worldcup2026_probs_champion.csv
+│       └── worldcup2026_probs_paths.csv
 │
 ├── notebooks/
 │   ├── 01-exploracion.ipynb
 │   ├── 02-features-partidos.ipynb
 │   ├── 03-modelo-historico.ipynb
 │   ├── 04-modelo_moderno.ipynb
-│   └── 05-montecarlo-worldcup2026.ipynb
+│   ├── 05-montecarlo-worldcup2026.ipynb
+│   └── 06-simulacion_fixture_oficial.ipynb
 │
 ├── reports/
-│   └── figures/              → visualizaciones finales
+│   └── figures/
+│       ├── dashboard_powerbi.png
+│       └── champion_top10.png
 │
 └── README.md
 ```
 
 ---
 
-## ⚽ Modelo híbrido del poder de un equipo
-
-El poder final de cada selección se calculó como:
+## ⚽ Modelo Híbrido del poder de un equipo
 
 ```
 final_power = 0.55 * ELO_normalizado
@@ -46,69 +51,53 @@ final_power = 0.55 * ELO_normalizado
              + 0.10 * market_value_normalizado
 ```
 
-Este enfoque busca capturar:
-
-- **Fuerza a largo plazo (ELO)**
-- **Forma reciente (modelos 2018–2024)**
-- **Talento / profundidad del plantel (valor de mercado)**
-
 ---
 
 ## 🎲 Simulación Monte Carlo
 
-Para estimar las probabilidades de ser campeón:
-
-- Se tomaron las **40 mejores selecciones** según `final_power`.
-- Se simuló un torneo knockout tipo Mundial.
-- Cada partido se evaluó usando un **modelo Bradley–Terry modificado con probabilidad de empate ajustada**.
-- Se corrieron **5000 simulaciones**.
-
-El resultado son las probabilidades estimadas de salir campeón.
+Cada partido se modela con Bradley–Terry + probabilidad de empate + Poisson para goles.  
+Se ejecutan **5000 simulaciones** completas del mundial.
 
 ---
 
-## 📈 Visualización principal
+## 🏆 Resultados principales (Top 10 Campeón)
 
-![Probabilidades Mundial 2026](reports/figures/worldcup2026_champions_prob_top20.png)
+```
+team,count,prob_campeon
+Spain,2016,0.4032
+England,882,0.1764
+France,565,0.1130
+Argentina,387,0.0774
+Germany,317,0.0634
+Portugal,283,0.0566
+Brazil,225,0.0450
+Netherlands,218,0.0436
+Japan,29,0.0058
+Belgium,23,0.0046
+```
 
 ---
 
-## 📊 Resultados principales (Top 20)
-
-| Selección | Probabilidad |
-|----------|--------------|
-| Spain | 5.34% |
-| Argentina | 5.04% |
-| England | 4.88% |
-| France | 4.76% |
-| Portugal | 4.50% |
-| Brazil | 4.50% |
-| Netherlands | 4.48% |
-| Germany | 3.90% |
-| Japan | 3.78% |
-| Mexico | 3.36% |
-*(ver dataset completo en `/data/processed/worldcup2026_montecarlo_top40.csv`)*
+## 📊 Visualizaciones  
+Incluye dashboard Power BI y figuras clave.
 
 ---
 
 ## 🛠 Tecnologías utilizadas
 
-- Python (pandas, numpy, sklearn)
-- Modelos ELO y Bradley–Terry
-- Simulación estocástica (Monte Carlo)
-- Normalización MinMaxScaler
-- Matplotlib / Seaborn para visualización
-- Flujo de trabajo estilo Cookiecutter Data Science
+- Python (pandas, numpy, scikit-learn)
+- ELO, Bradley–Terry, Poisson
+- Monte Carlo
+- Power BI
 
 ---
 
-## 📌 Próximos pasos
-
-- Simulación **con el fixture real** después del sorteo del 5/12.
-- Ajuste de pesos del modelo con validación cruzada.
-- Dashboard interactivo para análisis profundo.
+## 🚀 Próximos pasos
+- Validación cruzada  
+- Dashboard web interactivo  
 
 ---
 
-Si te interesa este proyecto, podés ver mis otros trabajos en:  
+## 📬 Contacto  
 **LinkedIn:** https://www.linkedin.com/in/lucianomosquen
+

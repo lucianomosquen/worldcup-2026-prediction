@@ -1,3 +1,20 @@
+## v2 Update — Probability Calibration
+
+The original simulation overestimated top teams due to an aggressive probability transformation applied to normalized ratings.
+
+This updated version includes:
+
+- Logistic probability calibration
+- Improved uncertainty modeling
+- Reworked expected goals scaling
+- Less deterministic knockout simulations
+- Updated official World Cup groups
+
+Example:
+- Spain championship probability:
+  - Previous version → 40.3%
+  - Current version → 11.5%
+
 # 🌍 Predicción del Mundial 2026 – Simulación Monte Carlo  
 **Proyecto de Machine Learning + Modelos Estadísticos + ELO + Métricas Modernas**
 
